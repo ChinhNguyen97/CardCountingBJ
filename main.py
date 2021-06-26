@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 
-RUNNINGCOUNT = 0
+#TO-DO: refractor using Classes
 
+#For first draft use golbal
+RUNNINGCOUNT = 0
+CARDINDECK = 52
+TOTALCARDS = 0
+
+#Count methods
 def getCount():
 	return RUNNINGCOUNT
 
@@ -9,11 +15,38 @@ def addToCount(num):
 	global RUNNINGCOUNT
 	RUNNINGCOUNT = RUNNINGCOUNT + num
 
+#Total methods
+def setTotal(decks):
+	global CARDINDECK
+	global TOTALCARDS
+	TOTALCARDS = CARDINDECK * decks
+
+def subTotal(num):
+	global TOTALCARDS
+	TOTALCARDS -= 1
+
+def getTotal():
+	global TOTALCARDS
+	return TOTALCARDS
+
+def getTrueCount():
+	global TOTALCARDS
+	global RUNNINGCOUNT
+
+	return format(RUNNINGCOUNT / (TOTALCARDS / 52), '.3f')
+
+#Main drive methods
+def help():
+	print("Options: \nq - quit \nc - running count \nt - total number of cards left \nx - true count")
+
+
 def intro():
 	print("****Welcome to Gamble Me****")
+	help()
 	deck_num = input("Enter number of starting decks: ")
+	setTotal(int(deck_num))
 
-	return deck_num
+	return 0
 
 def outro():
 	print("****See you later****")
@@ -47,15 +80,22 @@ def deal():
 	user_input = ""
 	while(user_input.lower() != "q"):
 		try:
-			user_input = input()
+			user_input = input("Deal: ")
 			if user_input.lower() == "c":
-				print(getCount())
+				print("Running count: " + str(getCount()))
+			elif user_input.lower() == "t":
+				print("Total cards left: " + str(getTotal()))
+			elif user_input.lower() == "x":
+				print("True count: " + str(getTrueCount()))
+			elif user_input.lower() == "q":
+				pass
 			else:
 				try:
 					number = int(user_input)
 					if (checkValue(number)):
 						val = assignValue(number)
 						addToCount(val)
+						subTotal(1)
 				except ValueError:
 					print("Please enter Q/C or a number")
 		except KeyboardInterrupt:
