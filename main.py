@@ -68,7 +68,7 @@ def assignValue(number):
 			value = 1
 		elif number in range(7,10):
 			value = 0
-		elif number == 1 or number >= 10:
+		elif number == 1 or ( number >= 10 and number <= 13 ):
 			value = -1
 
 	if value is not None:

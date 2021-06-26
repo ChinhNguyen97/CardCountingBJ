@@ -1,0 +1,8 @@
+#Test runs
+
+Run 1:
+	Description: Estimated 8 decks, might be less. Didn't play. Deck penetration 50-55% (Bad): ~4/8 decks. 
+	Notes: Hard to keep up with dealers dealing speed. Need to used side numpad for this.
+	True count deviation: -0.7% to +1.6%.
+	Analysis: Focus was on accurate count. Didn't keep track of players win/loses.
+
