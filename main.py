@@ -7,6 +7,8 @@ RUNNINGCOUNT = 0
 CARDINDECK = 52
 TOTALCARDS = 0
 
+DECKINFO = {"2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0, "1": 0}
+
 #Count methods
 def getCount():
 	return RUNNINGCOUNT
@@ -35,6 +37,28 @@ def getTrueCount():
 
 	return format(RUNNINGCOUNT / (TOTALCARDS / 52), '.3f')
 
+#Deck methods
+def setupDeck(decks):
+	global DECKINFO
+	for number in DECKINFO:
+		if number == "10":
+			DECKINFO[number] = 4*4*decks
+		else:
+			DECKINFO[number] = 4*decks
+
+def printDeck():
+	global DECKINFO
+	for number in DECKINFO:
+		print(number + " - " + str(DECKINFO[number]) + ", ", end = '')
+	print("\n")
+
+def removeFromDeck(num):
+	global DECKINFO
+	try:
+		DECKINFO[str(num)] -= 1
+	except:
+		print("J Q K is also 10")
+
 #Main drive methods
 def help():
 	print("Options: \nq - quit \nc - running count \nt - total number of cards left \nx - true count")
@@ -45,6 +69,7 @@ def intro():
 	help()
 	deck_num = input("Enter number of starting decks: ")
 	setTotal(int(deck_num))
+	setupDeck(int(deck_num))
 
 	return 0
 
@@ -87,12 +112,15 @@ def deal():
 				print("Total cards left: " + str(getTotal()))
 			elif user_input.lower() == "x":
 				print("True count: " + str(getTrueCount()))
+			elif user_input.lower() == "e":
+				printDeck()
 			elif user_input.lower() == "q":
 				pass
 			else:
 				try:
 					number = int(user_input)
 					if (checkValue(number)):
+						removeFromDeck(number)
 						val = assignValue(number)
 						addToCount(val)
 						subTotal(1)
